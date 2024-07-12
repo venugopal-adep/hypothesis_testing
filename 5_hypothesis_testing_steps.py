@@ -286,34 +286,34 @@ with tab4:
             st.error("Not quite. Think about what would improve the accuracy of evidence in court cases.")
 
     q3 = st.radio(
-            "3. In the context of the justice system, what does 'power' refer to?",
-            ["The authority of the judge", "The harshness of sentences", 
-             "The ability to correctly convict guilty individuals", "The number of cases processed per year"]
-        )
-    
-        if st.button("Check Answer", key="q3"):
-            if q3 == "The ability to correctly convict guilty individuals":
-                st.success("Correct! 🎉")
-                st.markdown("""
-                <div class="info-box">
-                <h4>Explanation:</h4>
-                In the context of hypothesis testing and the justice system analogy, 'power' refers to the ability to correctly convict guilty individuals. It's calculated as 1 - β, where β is the probability of a Type II error (false acquittal).
-    
-                In simpler terms, power is the justice system's ability to identify and convict truly guilty individuals when they are indeed guilty.
-    
-                Example: If the justice system has 80% power in identifying drug traffickers, it means that out of 100 actual drug traffickers brought to trial, about 80 would be correctly convicted. The higher the power, the more effective the system is at bringing guilty parties to justice.
-    
-                High power in a justice system is crucial because:
-                1. It ensures that more criminals are correctly convicted and removed from society.
-                2. It acts as a deterrent, as potential criminals know they're more likely to be caught and convicted.
-                3. It increases public trust in the effectiveness of the legal system.
-    
-                However, it's important to balance this with maintaining a low Type I error rate to protect innocent individuals from wrongful conviction.
-                </div>
-                """, unsafe_allow_html=True)
-            else:
-                st.error("Not quite. Think about what 'power' means in terms of the justice system's effectiveness.")
-    
+        "3. In the context of the justice system, what does 'power' refer to?",
+        ["The authority of the judge", "The harshness of sentences", 
+         "The ability to correctly convict guilty individuals", "The number of cases processed per year"]
+    )
+
+    if st.button("Check Answer", key="q3"):
+        if q3 == "The ability to correctly convict guilty individuals":
+            st.success("Correct! 🎉")
+            st.markdown("""
+            <div class="info-box">
+            <h4>Explanation:</h4>
+            In the context of hypothesis testing and the justice system analogy, 'power' refers to the ability to correctly convict guilty individuals. It's calculated as 1 - β, where β is the probability of a Type II error (false acquittal).
+
+            In simpler terms, power is the justice system's ability to identify and convict truly guilty individuals when they are indeed guilty.
+
+            Example: If the justice system has 80% power in identifying drug traffickers, it means that out of 100 actual drug traffickers brought to trial, about 80 would be correctly convicted. The higher the power, the more effective the system is at bringing guilty parties to justice.
+
+            High power in a justice system is crucial because:
+            1. It ensures that more criminals are correctly convicted and removed from society.
+            2. It acts as a deterrent, as potential criminals know they're more likely to be caught and convicted.
+            3. It increases public trust in the effectiveness of the legal system.
+
+            However, it's important to balance this with maintaining a low Type I error rate to protect innocent individuals from wrongful conviction.
+            </div>
+            """, unsafe_allow_html=True)
+        else:
+            st.error("Not quite. Think about what 'power' means in terms of the justice system's effectiveness.")
+
 # Footer
 st.markdown("---")
 st.markdown("© 2024 Justice System Error Explorer. Created with ⚖️ using Streamlit and Plotly.")
