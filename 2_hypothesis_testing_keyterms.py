@@ -3,7 +3,7 @@ import plotly.graph_objects as go
 import numpy as np
 from scipy import stats
 
-st.set_page_config(page_title="Hypothesis Testing Interactive Guide", layout="wide")
+st.set_page_config(page_title="Hypothesis Testing Simplified", layout="wide")
 
 # Custom CSS for better styling
 st.markdown("""
@@ -23,47 +23,102 @@ st.markdown("""
     background-color: #4e8cff;
     color: white;
 }
+.info-box {
+    background-color: #e6f3ff;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+.quiz-question {
+    background-color: #f0f2f6;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
 </style>
 """, unsafe_allow_html=True)
 
-st.title("Interactive Guide to Hypothesis Testing")
+st.title("🎓 Hypothesis Testing Simplified")
 
-tab1, tab2, tab3, tab4 = st.tabs(["Key Terms", "Interactive Demo", "Solved Numerical", "Quiz"])
+tab1, tab2, tab3, tab4 = st.tabs(["📚 Key Terms", "🎮 Interactive Demo", "🧑‍⚖️ Real-World Example", "🧠 Quiz"])
 
 with tab1:
-    st.header("Key Terms in Hypothesis Testing")
+    st.header("Key Terms in Hypothesis Testing - Explained Simply")
     
     col1, col2 = st.columns(2)
     
     with col1:
         st.subheader("P-Value")
-        st.write("""
-        • Probability of observing equal or more extreme results than the computed test statistic, under the null hypothesis.
-        • The smaller the p-value, the stronger the evidence against the null hypothesis.
-        """)
+        st.markdown("""
+        <div class="info-box">
+        Think of the p-value as the probability of a fluke result. It's like asking:
+        "If nothing special is happening, how likely are we to see results like this?"
         
-        st.subheader("Level of Significance")
-        st.write("""
-        • The significance level (denoted by α), is the probability of rejecting the null hypothesis when it is true.
-        • It is a measure of the strength of the evidence that must be present in the sample data to reject the null hypothesis.
-        """)
+        🎲 Example: Imagine you're testing a "lucky" coin. You flip it 100 times and get 60 heads.
+        The p-value tells you how likely it is to get 60 or more heads with a fair coin.
+        A small p-value (like 0.01) means it's very unlikely - your coin might actually be biased!
+        </div>
+        """, unsafe_allow_html=True)
+        
+        st.subheader("Significance Level (α)")
+        st.markdown("""
+        <div class="info-box">
+        This is like setting the bar for what counts as "surprising enough" to reject your initial assumption.
+        
+        🎯 Example: If you set α to 0.05 (5%), you're saying:
+        "I'll only believe something unusual is happening if there's less than a 5% chance of seeing these results by random chance."
+        It's like only being surprised by a 1-in-20 or rarer event.
+        </div>
+        """, unsafe_allow_html=True)
     
     with col2:
         st.subheader("Acceptance or Rejection Region")
-        st.write("""
-        • The total area under the distribution curve of the test statistic is partitioned into acceptance and rejection region.
-        • Reject the null hypothesis when the test statistic lies in the rejection region, else we fail to reject it.
-        """)
+        st.markdown("""
+        <div class="info-box">
+        Imagine a dartboard where the bullseye is your initial guess (null hypothesis).
+        The rejection region is like the area outside the dartboard.
         
-        st.subheader("Types of Error")
-        st.write("""
-        • There are two types of errors - Type I and Type II.
-        • Type I Error: Rejecting a true null hypothesis (false positive)
-        • Type II Error: Failing to reject a false null hypothesis (false negative)
-        """)
+        🎯 Example: If your dart (test result) lands on the board, you stick with your initial guess.
+        If it lands off the board (in the rejection region), you think, "Hmm, maybe my initial guess was wrong."
+        </div>
+        """, unsafe_allow_html=True)
+        
+        st.subheader("Types of Errors")
+        st.markdown("""
+        <div class="info-box">
+        • Type I Error: Crying wolf (false alarm)
+          You conclude something special is happening when it's actually just chance.
+          
+        • Type II Error: Missing the real deal
+          You fail to notice when something genuinely unusual is occurring.
+        
+        ⚖️ Example: In a court case, Type I is convicting an innocent person, 
+        while Type II is letting a guilty person go free.
+        </div>
+        """, unsafe_allow_html=True)
+
+    st.subheader("Why do we say 'Fail to Reject H₀' instead of 'Accept H₀'?")
+    st.markdown("""
+    <div class="info-box">
+    We use "fail to reject" because we're never 100% certain that the null hypothesis is true. 
+    We're just saying we don't have enough evidence to reject it.
+
+    🕵️ Think of it like a detective who doesn't have enough evidence to arrest a suspect. 
+    They're not saying the suspect is innocent, just that they can't prove guilt beyond reasonable doubt.
+    </div>
+    """, unsafe_allow_html=True)
 
 with tab2:
-    st.header("Interactive P-value Demonstration")
+    st.header("Interactive T-Distribution Demo")
+
+    st.markdown("""
+    <div class="info-box">
+    This interactive plot shows how changing your sample data affects the test results. 
+    Play with the sliders to see how the t-statistic and p-value change!
+    
+    The t-distribution is used when we don't know the population standard deviation, which is often the case in real-world scenarios.
+    </div>
+    """, unsafe_allow_html=True)
 
     col1, col2 = st.columns([1, 2])
 
@@ -79,13 +134,32 @@ with tab2:
         t_stat = (mean - null_mean) / (std_dev / np.sqrt(sample_size))
         p_value = 2 * (1 - stats.t.cdf(abs(t_stat), df=sample_size-1))
 
-        st.write(f"Test Statistic: {t_stat:.4f}")
+        st.write(f"T-Statistic: {t_stat:.4f}")
         st.write(f"P-value: {p_value:.4f}")
         
         if p_value < alpha:
-            st.success("Reject the null hypothesis")
+            st.error("Reject the null hypothesis")
         else:
-            st.info("Fail to reject the null hypothesis")
+            st.success("Fail to reject the null hypothesis")
+
+        st.markdown("""
+        <div class="info-box">
+        <h4>Impact of Parameters:</h4>
+        • Sample Mean: Shifts the t-statistic. Further from null hypothesis = stronger evidence against it.<br>
+        • Standard Deviation: Affects spread. Larger SD = less certainty, wider distribution.<br>
+        • Sample Size: Larger size = narrower distribution, more certainty.<br>
+        • Significance Level: Sets the threshold for rejection. Lower α = stricter test.
+        </div>
+        """, unsafe_allow_html=True)
+
+        st.markdown("""
+        <div class="info-box">
+        <h4>Formulas:</h4>
+        • T-Statistic: t = (x̄ - μ₀) / (s / √n)<br>
+        Where x̄ = sample mean, μ₀ = null hypothesis mean, s = sample standard deviation, n = sample size<br>
+        • P-value: 2 * P(T > |t|) where T follows t-distribution with (n-1) degrees of freedom
+        </div>
+        """, unsafe_allow_html=True)
 
     with col2:
         # Create the plot
@@ -109,88 +183,122 @@ with tab2:
         # Add vertical line for test statistic
         fig.add_vline(x=t_stat, line_dash="dash", line_color="green", annotation_text="Test Statistic", annotation_position="top right")
 
+        # Annotations
+        fig.add_annotation(x=-critical_value, y=0.1, text="Rejection Region", showarrow=False, yshift=10)
+        fig.add_annotation(x=critical_value, y=0.1, text="Rejection Region", showarrow=False, yshift=10)
+        fig.add_annotation(x=0, y=0.2, text="Acceptance Region", showarrow=False, yshift=10)
+
         fig.update_layout(
             title='T-Distribution with Rejection Regions',
             xaxis_title='T-value',
             yaxis_title='Probability Density',
-            height=400,  # Reduce the height of the plot
-            margin=dict(l=0, r=0, t=30, b=0)  # Reduce margins
+            height=500,
+            margin=dict(l=0, r=0, t=30, b=0)
         )
 
         st.plotly_chart(fig, use_container_width=True)
 
 with tab3:
-    st.header("Solved Numerical Example")
-    st.write("""
-    Problem: A company claims that their new energy drink increases reaction time by 20 milliseconds on average. 
-    A study is conducted with 36 participants, resulting in a mean increase of 18 milliseconds and a standard deviation of 6 milliseconds. 
-    Test this claim at a 5% significance level.
-    
-    Step 1: State the hypotheses
-    - Null Hypothesis (H₀): μ = 20 ms (The true mean increase is 20 ms)
-    - Alternative Hypothesis (H₁): μ ≠ 20 ms (The true mean increase is not 20 ms)
-    
-    Step 2: Calculate the test statistic
+    st.header("Real-World Example: The Case of the Speeding Judge")
+
+    st.markdown("""
+    <div class="info-box">
+    Let's look at a real-world scenario to see how hypothesis testing works in practice.
+
+    🚗 Scenario: A judge is accused of speeding. The speed limit is 65 mph, and the judge claims he wasn't speeding. 
+    The police department has been tracking speeds on this road and knows that the average speed is normally distributed 
+    with a standard deviation of 3 mph. They took 25 speed measurements of the judge's car.
+
+    Null Hypothesis (H₀): The judge was not speeding (average speed ≤ 65 mph)
+    Alternative Hypothesis (H₁): The judge was speeding (average speed > 65 mph)
+
+    Let's say the 25 measurements had a mean of 66.2 mph. Is this enough evidence to conclude the judge was speeding?
+    We'll use a significance level of 0.05 (5%).
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("""
+    <div class="info-box">
+    Step 1: Calculate the test statistic (t-value)
     t = (x̄ - μ₀) / (s / √n)
-    where x̄ = 18, μ₀ = 20, s = 6, n = 36
+    Where x̄ = 66.2, μ₀ = 65, s = 3, n = 25
     
-    t = (18 - 20) / (6 / √36) = -2 / 1 = -2
+    t = (66.2 - 65) / (3 / √25) = 2
     
-    Step 3: Determine the critical value
-    For a two-tailed test with α = 0.05 and df = 35, the critical value is ±2.030 (from t-distribution table)
+    Step 2: Find the critical t-value
+    For a one-tailed test with α = 0.05 and df = 24, the critical value is 1.711
     
-    Step 4: Compare test statistic to critical value
-    |-2| < 2.030, so we fail to reject the null hypothesis
+    Step 3: Compare and conclude
+    Since 2 > 1.711, we reject the null hypothesis.
     
-    Step 5: Calculate p-value
-    p-value = 2 * P(T ≤ -2) = 2 * 0.0262 = 0.0524
-    
-    Conclusion: Since p-value (0.0524) > α (0.05), we fail to reject the null hypothesis. 
-    There is not enough evidence to conclude that the true mean increase in reaction time is different from 20 ms.
-    """)
+    In simple terms: The evidence suggests the judge was indeed speeding! 
+    The chance of seeing an average speed this high if the judge wasn't speeding is less than 5%.
+    </div>
+    """, unsafe_allow_html=True)
 
 with tab4:
-    st.header("Quiz")
+    st.header("Quick Quiz")
     
-    q1 = st.radio(
-        "1. What does a small p-value indicate?",
-        ("Strong evidence against the null hypothesis", "Strong evidence for the null hypothesis", "No evidence either way")
-    )
-    if q1 == "Strong evidence against the null hypothesis":
-        st.success("Correct! A small p-value suggests that the observed data is unlikely under the null hypothesis, providing evidence against it.")
-    elif q1:
-        st.error("Incorrect. A small p-value actually indicates strong evidence against the null hypothesis.")
+    st.markdown("""
+    <div class="quiz-question">
+    <h3>1. What does a small p-value indicate?</h3>
+    </div>
+    """, unsafe_allow_html=True)
+    q1 = st.radio("Select your answer:", 
+        ("Strong evidence against the null hypothesis", "Strong evidence for the null hypothesis", "No evidence either way"),
+        key="q1")
+    if st.button("Check Answer", key="b1"):
+        if q1 == "Strong evidence against the null hypothesis":
+            st.success("Correct! A small p-value suggests that what we observed would be rare if the null hypothesis were true.")
+            st.markdown("""
+            <div class="info-box">
+            Imagine you're flipping a coin and get 9 heads out of 10 flips. If the coin is fair (null hypothesis), 
+            this outcome is quite rare. The p-value tells you just how rare. A small p-value means "Wow, this almost never 
+            happens with a fair coin!" - which makes you doubt that the coin is actually fair.
+            </div>
+            """, unsafe_allow_html=True)
+        else:
+            st.error("Not quite. Think about what a small probability means in terms of how likely your observation is under the null hypothesis.")
     
-    q2 = st.radio(
-        "2. What is the significance level (α) commonly used in hypothesis testing?",
-        ("0.01", "0.05", "0.1", "0.5")
-    )
-    if q2 == "0.05":
-        st.success("Correct! 0.05 or 5% is the most commonly used significance level in many fields.")
-    elif q2:
-        st.error("Incorrect. While other levels are sometimes used, 0.05 is the most common significance level.")
+    st.markdown("""
+    <div class="quiz-question">
+    <h3>2. What is the significance level (α) commonly used in hypothesis testing?</h3>
+    </div>
+    """, unsafe_allow_html=True)
+    q2 = st.radio("Select your answer:", ("0.01", "0.05", "0.1", "0.5"), key="q2")
+    if st.button("Check Answer", key="b2"):
+        if q2 == "0.05":
+            st.success("Correct! 0.05 or 5% is the most commonly used significance level in many fields.")
+            st.markdown("""
+            <div class="info-box">
+            Think of 0.05 as a balance between being too strict and too lenient. It's like saying, "I'll only cry wolf 
+            if there's less than a 1 in 20 chance that what I'm seeing is just random chance." It's strict enough to 
+            avoid too many false alarms, but not so strict that we miss important effects.
+            </div>
+            """, unsafe_allow_html=True)
+        else:
+            st.error("Not quite. While other levels are sometimes used, there's one that's most common in practice.")
     
-    q3 = st.radio(
-        "3. What happens if the test statistic falls in the rejection region?",
-        ("We fail to reject the null hypothesis", "We reject the null hypothesis", "We accept the alternative hypothesis")
-    )
-    if q3 == "We reject the null hypothesis":
-        st.success("Correct! When the test statistic falls in the rejection region, we reject the null hypothesis.")
-    elif q3:
-        st.error("Incorrect. If the test statistic is in the rejection region, we reject the null hypothesis.")
+    st.markdown("""
+    <div class="quiz-question">
+    <h3>3. What happens if the test statistic falls in the rejection region?</h3>
+    </div>
+    """, unsafe_allow_html=True)
+    q3 = st.radio("Select your answer:", 
+        ("We fail to reject the null hypothesis", "We reject the null hypothesis", "We accept the alternative hypothesis"),
+        key="q3")
+    if st.button("Check Answer", key="b3"):
+        if q3 == "We reject the null hypothesis":
+            st.success("Correct! When the test statistic falls in the rejection region, we reject the null hypothesis.")
+            st.markdown("""
+            <div class="info-box">
+            Imagine you're a detective, and the rejection region is like finding strong evidence at a crime scene. 
+            If your test statistic (evidence) falls in this region, it's like saying, "This evidence is too strong to ignore. 
+            We can't stick with our initial assumption of innocence." In statistical terms, we're saying the data is too 
+            unlikely under the null hypothesis, so we reject it.
+            </div>
+            """, unsafe_allow_html=True)
+        else:
+            st.error("Not quite. Think about what it means when our evidence (test statistic) falls in an area we've designated for 'strong evidence against the null hypothesis'.")
 
-    if st.button("Show Detailed Explanations"):
-        st.write("""
-        1. P-value: Think of the p-value as the probability of seeing your results (or more extreme) if the null hypothesis were true. 
-           A small p-value means this probability is low, suggesting your results are unlikely under the null hypothesis. 
-           For example, if you flip a coin 100 times and get 80 heads, the p-value would be very small because this outcome is very unlikely for a fair coin.
-
-        2. Significance Level: The significance level is like setting a threshold for decision-making. 
-           0.05 or 5% is commonly used because it balances the risk of false positives and false negatives. 
-           It's like saying, "I'll only reject the null hypothesis if there's less than a 5% chance of seeing these results by random chance."
-
-        3. Rejection Region: Imagine a dartboard where the bullseye represents the null hypothesis. 
-           The rejection region is like the area outside the dartboard. If your dart (test statistic) lands outside the board (in the rejection region), 
-           you conclude that you're not aiming at the center (reject the null hypothesis). 
-           For example, in a z-test with α = 0.05, if your z-score is greater than 1.96 or less than -1.96, it falls in the rejection region.
-        """)
+st.markdown("---")
