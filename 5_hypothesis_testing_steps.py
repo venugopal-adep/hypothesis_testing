@@ -314,6 +314,6 @@ with tab4:
             else:
                 st.error("Not quite. Think about what 'power' means in terms of the justice system's effectiveness.")
     
-    # Footer
-    st.markdown("---")
-    st.markdown("© 2024 Justice System Error Explorer. Created with ⚖️ using Streamlit and Plotly.")
+# Footer
+st.markdown("---")
+st.markdown("© 2024 Justice System Error Explorer. Created with ⚖️ using Streamlit and Plotly.")
