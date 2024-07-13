@@ -24,7 +24,8 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Title and introduction
-st.title("⚖️ Justice System Error Explorer")
+st.title("⚖️ Type I and Type II error - Justice System")
+st.write("**Developed by : Venugopal Adep**")
 st.markdown("Explore the intricacies of Type I and Type II errors in the context of the justice system.")
 
 # Create tabs
@@ -316,4 +317,4 @@ with tab4:
 
 # Footer
 st.markdown("---")
-st.markdown("© 2024 Justice System Error Explorer. Created with ⚖️ using Streamlit and Plotly.")
+st.markdown("© 2024 Type I and Type II error - Justice System. Developed by Venugopal Adep.")
