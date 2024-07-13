@@ -9,27 +9,31 @@ st.set_page_config(layout="wide", page_title="Justice System Error Explorer", pa
 # Custom CSS
 st.markdown("""
 <style>
-    .main {max-width: 1200px; margin: 0 auto;}
-    .stApp {padding-top: 1rem; background-color: #f0f4f8;}
+    body {font-family: Arial, sans-serif;}
+    .main {padding: 1rem;}
+    .stApp {background-color: #f0f4f8;}
     .st-emotion-cache-10trblm {text-align: center;}
     .info-box {background-color: #e1e5eb; padding: 20px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);}
+    .example-box {background-color: #d4edda; padding: 15px; border-radius: 10px; margin-top: 10px; border-left: 5px solid #28a745;}
     .quiz-container {background-color: #d0e1f9; padding: 20px; border-radius: 10px; margin-top: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);}
     .stTabs {background-color: #ffffff; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);}
-    .plot-container {display: flex; justify-content: space-between;}
+    .plot-container {display: flex; justify-content: space-between; align-items: flex-start;}
+    .sliders {width: 30%; padding-right: 20px;}
     .plot {width: 70%;}
-    .sliders {width: 25%; padding-left: 20px;}
-    .stButton>button {background-color: #4e8cff; color: white;}
+    .stButton>button {background-color: #4e8cff; color: white; border-radius: 5px; border: none; padding: 10px 20px; font-size: 16px;}
     .stButton>button:hover {background-color: #3a7be0;}
+    h1, h2, h3 {color: #2c3e50;}
+    .stSlider {margin-bottom: 20px;}
 </style>
 """, unsafe_allow_html=True)
 
 # Title and introduction
-st.title("⚖️ Type I and Type II error - Justice System")
-st.write("**Developed by : Venugopal Adep**")
-st.markdown("Explore the intricacies of Type I and Type II errors in the context of the justice system.")
+st.title("⚖️ Type I and Type II Errors : Justice System Error Explorer")
+st.write("**Developed by: Venugopal Adep**")
+st.markdown("Dive into the world of legal decision-making and discover how errors can occur in the justice system.")
 
 # Create tabs
-tab1, tab2, tab3, tab4 = st.tabs(["📚 Concept", "📊 Visualization", "🧮 Case Studies", "🧠 Quiz"])
+tab1, tab2, tab3, tab4 = st.tabs(["📚 Concept", "📊 Interactive Demo", "🧮 Real-World Examples", "🧠 Quiz"])
 
 with tab1:
     st.header("Understanding Errors in the Justice System")
@@ -39,11 +43,11 @@ with tab1:
     with col1:
         st.markdown("""
         <div class="info-box">
-        <h3>🚨 Type I Error (False Conviction)</h3>
+        <h3>🚨 Type I Error: The Innocent Goes to Jail</h3>
         <ul>
-        <li>Convicting an innocent person</li>
-        <li>Probability = α (significance level)</li>
-        <li>"Sending an innocent person to jail"</li>
+        <li>What it is: Convicting an innocent person</li>
+        <li>In stats speak: False Positive (α)</li>
+        <li>Real-world impact: An innocent person loses their freedom</li>
         </ul>
         </div>
         """, unsafe_allow_html=True)
@@ -51,270 +55,292 @@ with tab1:
     with col2:
         st.markdown("""
         <div class="info-box">
-        <h3>😴 Type II Error (False Acquittal)</h3>
+        <h3>😴 Type II Error: The Guilty Walks Free</h3>
         <ul>
-        <li>Failing to convict a guilty person</li>
-        <li>Probability = β</li>
-        <li>"Letting a criminal go free"</li>
+        <li>What it is: Failing to convict a guilty person</li>
+        <li>In stats speak: False Negative (β)</li>
+        <li>Real-world impact: A criminal remains in society</li>
         </ul>
         </div>
         """, unsafe_allow_html=True)
     
     st.markdown("""
     <div class="info-box">
-    <h3>🔑 Key Concepts in the Justice System</h3>
+    <h3>🔑 Key Ideas to Remember</h3>
     <ul>
-        <li>α: The risk of wrongful convictions</li>
-        <li>β: The risk of wrongful acquittals</li>
-        <li>Power (1 - β): The ability to convict truly guilty individuals</li>
-        <li>Tradeoff: A stricter justice system (lower α) might increase wrongful acquittals (higher β)</li>
-        <li>Better evidence and thorough investigations help reduce both types of errors</li>
+        <li>Balance is crucial: Reducing one type of error often increases the other</li>
+        <li>The justice system's strength (Power) = Its ability to correctly convict the guilty</li>
+        <li>Being too strict can lead to more innocent people in jail</li>
+        <li>Being too lenient can let more criminals go free</li>
+        <li>Better evidence and thorough investigations are the best way to improve accuracy</li>
     </ul>
     </div>
     """, unsafe_allow_html=True)
 
+    st.markdown("""
+    <div class="example-box">
+    <h4>Real-life Example: The Coffee Shop Thief</h4>
+    Imagine you're a cafe owner trying to catch a thief who's been stealing from the tip jar.
+
+    <b>Type I Error (False Conviction):</b> You accuse and ban a regular customer based on shaky evidence. 
+    You've just lost an innocent customer and potentially damaged your reputation.
+
+    <b>Type II Error (False Acquittal):</b> You see someone suspicious but decide not to act. 
+    If they were the thief, they'll continue stealing, harming your business and staff.
+
+    <b>The Dilemma:</b> How strict should your policy be? Very strict policies might scare away innocent customers, 
+    while very lenient ones might embolden the thief.
+
+    Just like in the justice system, the key is finding the right balance and gathering solid evidence!
+    </div>
+    """, unsafe_allow_html=True)
+
 with tab2:
-    st.header("Interactive Visualization: Justice System Errors")
+    st.header("Interactive Demo: Justice System in Action")
     
-    col1, col2 = st.columns([0.7, 0.3])
+    st.markdown("""
+    Imagine you're designing a justice system. Use the sliders to adjust how the system works and see the impact on innocent and guilty individuals.
+    """)
     
-    with col2:
-        st.subheader("Adjust Court Parameters")
-        innocence_mean = st.slider("Innocence Evidence Mean", 0.0, 5.0, 2.5, 0.1)
-        guilt_mean = st.slider("Guilt Evidence Mean", 0.0, 5.0, 3.5, 0.1)
-        evidence_variability = st.slider("Evidence Variability", 0.1, 2.0, 1.0, 0.1)
-        conviction_threshold = st.slider("Conviction Threshold", 0.01, 0.10, 0.05, 0.01)
-    
-    # Calculate critical value and probabilities
-    z_crit = stats.norm.ppf(1 - conviction_threshold)
-    evidence_threshold = innocence_mean + z_crit * evidence_variability
-    
-    x = np.linspace(0, 5, 1000)
-    y_innocent = stats.norm.pdf(x, innocence_mean, evidence_variability)
-    y_guilty = stats.norm.pdf(x, guilt_mean, evidence_variability)
-    
-    false_conviction_rate = 1 - stats.norm.cdf(evidence_threshold, innocence_mean, evidence_variability)
-    false_acquittal_rate = stats.norm.cdf(evidence_threshold, guilt_mean, evidence_variability)
-    conviction_power = 1 - false_acquittal_rate
-    
-    # Create plot
-    fig = go.Figure()
-    
-    # Innocent Population
-    fig.add_trace(go.Scatter(x=x, y=y_innocent, name="Innocent Population", 
-                             fill='tozeroy', fillcolor='rgba(0,176,246,0.2)',
-                             line=dict(color='blue')))
-    
-    # Guilty Population
-    fig.add_trace(go.Scatter(x=x, y=y_guilty, name="Guilty Population", 
-                             fill='tozeroy', fillcolor='rgba(231,107,243,0.2)',
-                             line=dict(color='purple')))
-    
-    # Evidence threshold line
-    fig.add_vline(x=evidence_threshold, line_dash="dash", line_color="red", 
-                  annotation=dict(text="Conviction Threshold", textangle=-90, yshift=10))
-    
-    # Type I Error (False Conviction)
-    x_type1 = x[x >= evidence_threshold]
-    y_type1 = stats.norm.pdf(x_type1, innocence_mean, evidence_variability)
-    fig.add_trace(go.Scatter(x=x_type1, y=y_type1, fill='tozeroy', 
-                             fillcolor='rgba(255,0,0,0.3)', name='False Conviction (Type I)',
-                             line=dict(color='red')))
-    
-    # Type II Error (False Acquittal)
-    x_type2 = x[x <= evidence_threshold]
-    y_type2 = stats.norm.pdf(x_type2, guilt_mean, evidence_variability)
-    fig.add_trace(go.Scatter(x=x_type2, y=y_type2, fill='tozeroy', 
-                             fillcolor='rgba(0,255,0,0.3)', name='False Acquittal (Type II)',
-                             line=dict(color='green')))
-    
-    # Annotations
-    fig.add_annotation(x=innocence_mean, y=max(y_innocent)/2, text="Typical Innocent", showarrow=True, arrowhead=2, ax=0, ay=-40)
-    fig.add_annotation(x=guilt_mean, y=max(y_guilty)/2, text="Typical Guilty", showarrow=True, arrowhead=2, ax=0, ay=-40)
-    fig.add_annotation(x=(evidence_threshold + 5)/2, y=max(y_innocent)/4, text="Convicted", showarrow=False)
-    fig.add_annotation(x=evidence_threshold/2, y=max(y_innocent)/4, text="Acquitted", showarrow=False)
-    
-    fig.update_layout(
-        title="Understanding Errors in the Justice System",
-        xaxis_title="Strength of Evidence",
-        yaxis_title="Probability Density",
-        xaxis=dict(range=[0, 5]),
-        legend=dict(orientation="v", yanchor="top", y=1, xanchor="left", x=0),
-        height=600,
-        annotations=[
-            dict(x=0.5, y=1.05, xref="paper", yref="paper", text=f"False Conviction Rate: {false_conviction_rate:.2%}", showarrow=False),
-            dict(x=0.5, y=1.10, xref="paper", yref="paper", text=f"False Acquittal Rate: {false_acquittal_rate:.2%}", showarrow=False),
-            dict(x=0.5, y=1.15, xref="paper", yref="paper", text=f"Conviction Power: {conviction_power:.2%}", showarrow=False)
-        ],
-        margin=dict(t=150)
-    )
+    col1, col2 = st.columns([3, 7])
     
     with col1:
+        st.subheader("Adjust the System")
+        innocence_mean = st.slider("Average Innocence Level", 0.0, 5.0, 2.5, 0.1, 
+                                   help="Higher values mean innocent people generally have stronger evidence of innocence")
+        guilt_mean = st.slider("Average Guilt Level", 0.0, 5.0, 3.5, 0.1,
+                               help="Higher values mean guilty people generally have stronger evidence against them")
+        evidence_variability = st.slider("Evidence Clarity", 0.1, 2.0, 1.0, 0.1,
+                                         help="Lower values mean evidence is more clear-cut, higher values mean it's more ambiguous")
+        conviction_threshold = st.slider("Conviction Strictness", 0.01, 0.10, 0.05, 0.01,
+                                         help="Lower values mean the system is stricter, requiring more evidence to convict")
+    
+    with col2:
+        # Calculate critical value and probabilities
+        z_crit = stats.norm.ppf(1 - conviction_threshold)
+        evidence_threshold = innocence_mean + z_crit * evidence_variability
+        
+        x = np.linspace(0, 5, 1000)
+        y_innocent = stats.norm.pdf(x, innocence_mean, evidence_variability)
+        y_guilty = stats.norm.pdf(x, guilt_mean, evidence_variability)
+        
+        false_conviction_rate = 1 - stats.norm.cdf(evidence_threshold, innocence_mean, evidence_variability)
+        false_acquittal_rate = stats.norm.cdf(evidence_threshold, guilt_mean, evidence_variability)
+        conviction_power = 1 - false_acquittal_rate
+        
+        # Create plot
+        fig = go.Figure()
+        
+        # Innocent Population
+        fig.add_trace(go.Scatter(x=x, y=y_innocent, name="Innocent People", 
+                                 fill='tozeroy', fillcolor='rgba(0,176,246,0.2)',
+                                 line=dict(color='blue')))
+        
+        # Guilty Population
+        fig.add_trace(go.Scatter(x=x, y=y_guilty, name="Guilty People", 
+                                 fill='tozeroy', fillcolor='rgba(231,107,243,0.2)',
+                                 line=dict(color='purple')))
+        
+        # Evidence threshold line
+        fig.add_vline(x=evidence_threshold, line_dash="dash", line_color="red", 
+                      annotation=dict(text="Conviction Line", textangle=-90, yshift=10))
+        
+        # Type I Error (False Conviction)
+        x_type1 = x[x >= evidence_threshold]
+        y_type1 = stats.norm.pdf(x_type1, innocence_mean, evidence_variability)
+        fig.add_trace(go.Scatter(x=x_type1, y=y_type1, fill='tozeroy', 
+                                 fillcolor='rgba(255,0,0,0.3)', name='Wrongly Convicted Innocent',
+                                 line=dict(color='red')))
+        
+        # Type II Error (False Acquittal)
+        x_type2 = x[x <= evidence_threshold]
+        y_type2 = stats.norm.pdf(x_type2, guilt_mean, evidence_variability)
+        fig.add_trace(go.Scatter(x=x_type2, y=y_type2, fill='tozeroy', 
+                                 fillcolor='rgba(0,255,0,0.3)', name='Wrongly Freed Guilty',
+                                 line=dict(color='green')))
+        
+        # Annotations
+        fig.add_annotation(x=innocence_mean, y=max(y_innocent)/2, text="Typical Innocent Person", showarrow=True, arrowhead=2, ax=0, ay=-40)
+        fig.add_annotation(x=guilt_mean, y=max(y_guilty)/2, text="Typical Guilty Person", showarrow=True, arrowhead=2, ax=0, ay=-40)
+        fig.add_annotation(x=(evidence_threshold + 5)/2, y=max(y_innocent)/4, text="Convicted", showarrow=False)
+        fig.add_annotation(x=evidence_threshold/2, y=max(y_innocent)/4, text="Acquitted", showarrow=False)
+        
+        fig.update_layout(
+            title="How Evidence Affects Justice",
+            xaxis_title="Strength of Evidence Against Someone",
+            yaxis_title="How Common This Evidence Level Is",
+            xaxis=dict(range=[0, 5]),
+            legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
+            height=600,
+            margin=dict(l=50, r=50, t=100, b=50),
+            annotations=[
+                dict(x=0.5, y=1.05, xref="paper", yref="paper", text=f"Innocent people wrongly convicted: {false_conviction_rate:.2%}", showarrow=False),
+                dict(x=0.5, y=1.10, xref="paper", yref="paper", text=f"Guilty people wrongly freed: {false_acquittal_rate:.2%}", showarrow=False),
+                dict(x=0.5, y=1.15, xref="paper", yref="paper", text=f"Chance of catching the truly guilty: {conviction_power:.2%}", showarrow=False)
+            ]
+        )
+        
         st.plotly_chart(fig, use_container_width=True)
     
-    st.subheader("How to Interpret This Court Case Visualization")
+    st.subheader("What's Going On in This Picture?")
     st.markdown("""
-    This plot represents how evidence is distributed in court cases:
+    This graph shows how evidence is spread out in court cases:
 
-    1. **Blue Curve (Innocent Population)**: Distribution of evidence for innocent individuals
-       - Center: Typical evidence level for innocent people
-       - Spread: Variation in evidence among innocent individuals
+    1. **Blue Mountain (Innocent People)**: Most innocent folks are on the left side, with less evidence against them.
+    2. **Purple Mountain (Guilty People)**: Most guilty folks are on the right, with more evidence against them.
+    3. **Red Line (Conviction Line)**: If someone's evidence is to the right of this line, they get convicted.
+    4. **Red Area (Wrongly Convicted)**: Innocent people who end up on the wrong side of the line.
+    5. **Green Area (Wrongly Freed)**: Guilty people who slip to the left of the line and go free.
 
-    2. **Purple Curve (Guilty Population)**: Distribution of evidence for guilty individuals
-       - Shifted right: Indicates stronger evidence against guilty individuals
-       - Overlap with blue: Difficulty in distinguishing guilt from innocence
+    **Try This:**
+    1. Move the "Average Guilt Level" slider right. See how it's now easier to tell innocent and guilty apart?
+    2. Increase the "Evidence Clarity". Notice how the mountains get skinnier? This means less overlap and fewer mistakes!
+    3. Slide the "Conviction Strictness" left. The red line moves right, convicting fewer innocent people but letting more guilty ones go.
 
-    3. **Red Line (Conviction Threshold)**: The evidence level required for conviction
-       - Right of line: Evidence strong enough for conviction
-       - Left of line: Insufficient evidence for conviction
-
-    4. **Red Area (False Conviction)**: Chance of wrongly convicting an innocent person
-       - "Type I Error" or "Miscarriage of Justice"
-
-    5. **Green Area (False Acquittal)**: Chance of failing to convict a guilty person
-       - "Type II Error" or "Letting a Criminal Go Free"
-
-    6. **Evidence Strength (X-axis)**: Measures the strength of evidence in a case
-       - Larger values suggest stronger evidence of guilt
-
-    **Key Takeaways:**
-    - Separation between curves: Easier to distinguish guilt from innocence
-    - Overlap of curves: Risk of judicial errors
-    - Moving red line right: Reduces false convictions, but may let more guilty people go free
-    - Moving red line left: Convicts more guilty people, but risks more false convictions
-
-    **Experiment:**
-    1. Adjust the "Guilt Evidence Mean". How does this affect the justice system's accuracy?
-    2. Change the "Evidence Variability". How does this impact the court's ability to make correct judgments?
-    3. Modify the "Conviction Threshold". Observe how this affects false convictions and acquittals.
-
-    Remember: In real court cases, we don't see these full distributions. This visualization helps us understand the challenges in making just decisions based on available evidence!
+    Remember, in real life, we don't get to see these full mountains. We just get one piece of evidence and have to decide. 
+    This picture helps us understand why mistakes can happen and how we might make fewer of them!
     """)
 
 with tab3:
-    st.header("Real Court Case Studies")
+    st.header("Real-World Justice Scenarios")
     
     st.markdown("""
     <div class="info-box">
-    <h3>Case Study: The Impact of DNA Evidence</h3>
-    In a murder trial, the following probabilities were estimated:
-    - False Conviction Rate (α) = 0.01 (1%)
-    - False Acquittal Rate (β) = 0.2 (20%)
+    <h3>Case Study: DNA Evidence Revolution</h3>
+    Imagine a murder trial from the 1980s. Back then, we estimated:
+    - Chance of wrongly convicting an innocent person (α) = 5% (0.05)
+    - Chance of freeing a guilty person (β) = 20% (0.2)
     
-    Questions:
-    1. What's the probability of wrongly convicting an innocent person?
-    2. What's the probability of correctly convicting a guilty person (Power)?
-    3. How might introducing DNA evidence change these probabilities?
+    Fast forward to today, with advanced DNA testing. Let's explore how this might change things.
     </div>
     """, unsafe_allow_html=True)
     
     if st.button("Reveal Analysis"):
         st.markdown("""
         <div class="info-box">
-        <h4>Analysis:</h4>
-        1. Probability of wrongly convicting an innocent person = α = 0.01 (1%)
-        2. Power = 1 - β = 1 - 0.2 = 0.8 (80%)
-        3. Introducing DNA evidence:
-           - Likely decreases α (fewer innocent people convicted)
-           - Likely decreases β (fewer guilty people acquitted)
-           - Increases overall accuracy and power of the justice system
+        <h4>Breaking it Down:</h4>
+        1. In the 1980s:
+           - 5% chance of sending an innocent person to jail (5 out of 100 cases)
+           - 80% chance of correctly convicting a guilty person (1 - β = 1 - 0.2 = 0.8)
+           - 20% of guilty individuals might walk free
         
-        <h4>Real-world Interpretation:</h4>
-        - There's a 1% chance of sending an innocent person to jail (1 out of 100 cases)
-        - The court has an 80% chance of correctly convicting a guilty person
-        - 20% of guilty individuals might be wrongly acquitted
+        2. With modern DNA evidence:
+           - α might drop to 1% (much less chance of convicting the innocent)
+           - β might drop to 5% (much better at catching the guilty)
+           - Power increases to 95% (1 - 0.05 = 0.95)
         
-        DNA evidence could significantly improve these numbers by providing more conclusive evidence, 
-        potentially reducing both types of errors and increasing the court's ability to make correct judgments.
+        <h4>What This Means in Real Life:</h4>
+        - 1980s: If you were innocent, you had a 1 in 20 chance of being wrongly convicted. Scary!
+        - Today: Your chances of a wrongful conviction might be more like 1 in 100. Much better!
+        - For victims and society: We're much more likely to catch and convict the real criminals.
+        
+        <b>The Big Picture:</b> DNA evidence is like giving the justice system a pair of super-strong glasses. 
+        It sees things much more clearly, making fewer mistakes in both directions. This is why many old cases 
+        are being reopened and reviewed with new DNA evidence!
         </div>
         """, unsafe_allow_html=True)
 
 with tab4:
-    st.header("Justice System Quiz")
+    st.header("Test Your Justice System Smarts!")
     
     st.markdown("""
     <div class="quiz-container">
-    Test your understanding of errors in the justice system:
+    Let's see how well you understand our justice system's challenges:
     </div>
     """, unsafe_allow_html=True)
     
     q1 = st.radio(
-        "1. What happens to false acquittals (Type II errors) when we make the justice system stricter (lower α)?",
-        ["Decrease", "Increase", "Stay the same", "Become zero"]
+        "1. If we make our justice system super strict (lower α), what happens to the number of guilty people who might go free?",
+        ["It goes down", "It goes up", "It stays the same", "It becomes zero"]
     )
     
     if st.button("Check Answer", key="q1"):
-        if q1 == "Increase":
-            st.success("Correct! 🎉")
+        if q1 == "It goes up":
+            st.success("You got it! 🎉")
             st.markdown("""
-            <div class="info-box">
-            <h4>Explanation:</h4>
-            When we make the justice system stricter (lower α), we require more evidence to convict. 
-            This means we're less likely to convict innocent people (fewer Type I errors), but more likely to let guilty people go free (more Type II errors).
-            
-            Think of it like a very cautious judge. They're less likely to convict without rock-solid evidence, 
-            which protects the innocent but might also allow some guilty individuals to escape conviction.
-            
-            Example: If we require DNA evidence for all convictions, we'd have fewer wrongful convictions, 
-            but we might fail to convict in cases where DNA evidence isn't available, even if other evidence suggests guilt.
+            <div class="example-box">
+            <h4>Here's Why:</h4>
+            Think of it like a very picky restaurant critic. If they only give good reviews to "perfect"
+restaurants, they might miss out on some really good places that have just a tiny flaw. 
+            In the same way, a super strict justice system might let some guilty people go free because 
+            the evidence isn't 100% perfect.
+
+            Example: If we required video evidence for every crime, we'd rarely convict an innocent person, 
+            but many guilty people would go free when there's no video available.
             </div>
             """, unsafe_allow_html=True)
         else:
-            st.error("Not quite. Consider how stricter conviction requirements might affect guilty individuals.")
+            st.error("Not quite. Think about what happens when we set a very high bar for conviction.")
 
     q2 = st.radio(
-        "2. Which of the following would likely improve both types of errors in the justice system?",
-        ["Increasing jail sentences", "Improving forensic technology", "Reducing the number of judges", "Speeding up trials"]
+        "2. Which of these would likely help reduce both types of errors in the justice system?",
+        ["Harsher sentences", "Better forensic technology", "Faster trials", "More juries"]
     )
 
     if st.button("Check Answer", key="q2"):
-        if q2 == "Improving forensic technology":
-            st.success("Correct! 🎉")
+        if q2 == "Better forensic technology":
+            st.success("Spot on! 🎉")
             st.markdown("""
-            <div class="info-box">
-            <h4>Explanation:</h4>
-            Improving forensic technology helps reduce both Type I and Type II errors by providing more accurate and reliable evidence. 
-            
-            Better forensic tech allows us to:
-            1. More accurately identify guilty individuals (reducing Type II errors)
-            2. More confidently exonerate innocent individuals (reducing Type I errors)
+            <div class="example-box">
+            <h4>Here's Why:</h4>
+            Better forensic technology, like improved DNA testing or more accurate fingerprint analysis, 
+            helps us gather stronger and more reliable evidence. This means:
 
-            Example: Advanced DNA analysis techniques can provide stronger evidence of guilt or innocence, 
-            helping courts make more accurate decisions in both convicting the guilty and acquitting the innocent.
+            1. We're less likely to accuse innocent people (fewer Type I errors)
+            2. We're better at identifying the truly guilty (fewer Type II errors)
+
+            Think of it like upgrading from an old flip phone camera to a modern smartphone camera. 
+            Suddenly, your pictures are clearer, and you can zoom in without everything getting blurry. 
+            In the same way, better forensic tech gives us a clearer picture of what really happened in a crime.
+
+            Example: In the past, we might have relied on eyewitness testimony, which can be unreliable. 
+            Now, with DNA evidence, we can often tell with near certainty whether someone was at a crime scene.
             </div>
             """, unsafe_allow_html=True)
         else:
-            st.error("Not quite. Think about what would improve the accuracy of evidence in court cases.")
+            st.error("Not quite. Consider which option would improve the quality of evidence in court cases.")
 
     q3 = st.radio(
-        "3. In the context of the justice system, what does 'power' refer to?",
-        ["The authority of the judge", "The harshness of sentences", 
-         "The ability to correctly convict guilty individuals", "The number of cases processed per year"]
+        "3. In our justice system analogy, what does 'power' mean?",
+        ["How long the sentences are", "How quickly trials are completed", 
+         "How good we are at convicting guilty people", "How many police officers we have"]
     )
 
     if st.button("Check Answer", key="q3"):
-        if q3 == "The ability to correctly convict guilty individuals":
-            st.success("Correct! 🎉")
+        if q3 == "How good we are at convicting guilty people":
+            st.success("You nailed it! 🎉")
             st.markdown("""
-            <div class="info-box">
-            <h4>Explanation:</h4>
-            In the context of hypothesis testing and the justice system analogy, 'power' refers to the ability to correctly convict guilty individuals. It's calculated as 1 - β, where β is the probability of a Type II error (false acquittal).
+            <div class="example-box">
+            <h4>Here's Why:</h4>
+            In the context of our justice system analogy, 'power' refers to how good we are at correctly 
+            identifying and convicting people who are actually guilty. It's calculated as 1 - β, where β 
+            is the probability of a Type II error (letting a guilty person go free).
 
-            In simpler terms, power is the justice system's ability to identify and convict truly guilty individuals when they are indeed guilty.
+            Think of it like a basketball player's shooting percentage. A player with a high shooting percentage 
+            (high power) is really good at making baskets when they take a shot. Similarly, a justice system 
+            with high power is really good at convicting guilty people when they're brought to trial.
 
-            Example: If the justice system has 80% power in identifying drug traffickers, it means that out of 100 actual drug traffickers brought to trial, about 80 would be correctly convicted. The higher the power, the more effective the system is at bringing guilty parties to justice.
+            Example: If our justice system has 80% power in identifying drug dealers, it means that out of 
+            100 actual drug dealers brought to trial, about 80 would be correctly convicted. The higher the 
+            power, the more effective the system is at bringing guilty parties to justice.
 
-            High power in a justice system is crucial because:
-            1. It ensures that more criminals are correctly convicted and removed from society.
-            2. It acts as a deterrent, as potential criminals know they're more likely to be caught and convicted.
-            3. It increases public trust in the effectiveness of the legal system.
+            Why it matters:
+            1. It helps keep society safer by removing more criminals from the streets.
+            2. It can deter crime, as potential criminals know they're more likely to get caught and convicted.
+            3. It increases public trust in the legal system.
 
-            However, it's important to balance this with maintaining a low Type I error rate to protect innocent individuals from wrongful conviction.
+            Remember, though, we always want to balance this with keeping the Type I error rate (wrongly 
+            convicting innocent people) as low as possible. It's a constant balancing act!
             </div>
             """, unsafe_allow_html=True)
         else:
-            st.error("Not quite. Think about what 'power' means in terms of the justice system's effectiveness.")
+            st.error("Not quite. Think about what 'power' might mean in terms of the justice system's effectiveness.")
 
 # Footer
 st.markdown("---")
-st.markdown("© 2024 Type I and Type II error - Justice System. Developed by Venugopal Adep.")
+st.markdown("""
+<div style="text-align: center; color: #777;">
+© 2024 Justice System Error Explorer | Developed by Venugopal Adep<br>
+This interactive tool is for educational purposes only and does not represent any specific legal system.
+</div>
+""", unsafe_allow_html=True)
