@@ -141,11 +141,11 @@ with tab2:
         marker_color='lightblue'
     ))
 
-    fig.add_vline(x=hypothesized_mean, line_dash="dash", line_color="red", 
+    fig.add_vline(x=hypothesized_mean, line_dash="dash", line_color="green", 
                   annotation_text=f"Hypothesized Mean: {hypothesized_mean}",
                   annotation_position="top left")
 
-    fig.add_vline(x=sample_mean, line_dash="dash", line_color="green", 
+    fig.add_vline(x=sample_mean, line_dash="dash", line_color="red", 
                   annotation_text=f"Sample Mean: {sample_mean:.2f}",
                   annotation_position="top right")
 
