@@ -52,7 +52,8 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-st.title("🎯 One-tailed and Two-tailed Tests: Interactive Learning Experience")
+st.title("🎯 One-tailed and Two-tailed Tests")
+st.write("**Developed by : Venugopal Adep**")
 
 st.markdown("""
 Welcome to this exciting journey into the world of hypothesis testing! 
