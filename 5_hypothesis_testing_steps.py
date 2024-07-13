@@ -64,6 +64,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 st.title("🚀 Hypothesis Testing Steps")
+st.write('**Developed by : Venugopal Adep**')
 
 st.markdown("""
 Welcome, statistical explorer! 🌟 Embark on an exciting journey through the world of hypothesis testing. 
@@ -384,6 +385,4 @@ with tab6:
     - [Crash Course Statistics: Hypothesis Testing](https://www.youtube.com/watch?v=WWdpLbbBveo) - Fast, fun, and informative!
     """)
 
-# Footer
-st.markdown("---")
-st.markdown("Created with 💖 and statistical magic using Streamlit")
+
