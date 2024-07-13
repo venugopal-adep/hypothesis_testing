@@ -38,7 +38,8 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-st.title("🎓 Hypothesis Testing Simplified")
+st.title("🎓 Hypothesis Testing - Key Terms")
+st.write("**Developed by : Venugopal Adep**")
 
 tab1, tab2, tab3, tab4 = st.tabs(["📚 Key Terms", "🎮 Interactive Demo", "🧑‍⚖️ Real-World Example", "🧠 Quiz"])
 
