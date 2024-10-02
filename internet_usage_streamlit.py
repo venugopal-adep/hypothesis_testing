@@ -103,13 +103,13 @@ with tab2:
 
     st.subheader("Hypothesis Testing")
 
-    col1, col2 = st.columns([2, 1])
+    col1, col2 = st.columns([1, 2])
 
     with col1:
-        hypothesized_mean = st.slider("Hypothesized mean (minutes)", min_value=60, max_value=240, value=144, step=1)
+        alpha = st.number_input("Significance Level (α)", value=0.05, step=0.01, format="%.2f")
 
     with col2:
-        alpha = st.number_input("Significance Level (α)", value=0.05, step=0.01, format="%.2f")
+        hypothesized_mean = st.slider("Hypothesized mean (minutes)", min_value=60, max_value=240, value=144, step=1)
 
     # Calculations
     sample_mean = data["Minutes"].mean()
@@ -134,11 +134,15 @@ with tab2:
 
     fig = go.Figure()
 
-    fig.add_trace(go.Histogram(
-        x=data["Minutes"],
-        name="Sample Data",
-        nbinsx=10,
-        marker_color='lightblue'
+    # Generate normal distribution
+    x = np.linspace(0, 300, 1000)
+    y = stats.norm.pdf(x, sample_mean, sample_std)
+
+    fig.add_trace(go.Scatter(
+        x=x, y=y,
+        mode='lines',
+        name='Normal Distribution',
+        line=dict(color='lightblue', width=2)
     ))
 
     fig.add_vline(x=hypothesized_mean, line_dash="dash", line_color="green", 
@@ -159,7 +163,7 @@ with tab2:
     fig.update_layout(
         title="Distribution of Internet Usage Time",
         xaxis_title="Minutes",
-        yaxis_title="Frequency",
+        yaxis_title="Probability Density",
         showlegend=True,
         hovermode="x"
     )
@@ -171,26 +175,21 @@ with tab2:
     # Add custom hover text
     fig.update_traces(
         hovertemplate="<br>".join([
-            "Minutes: %{x}",
-            "Frequency: %{y}",
-            "p-value %{customdata}",
+            "Minutes: %{x:.2f}",
+            "Density: %{y:.4f}",
             "%{text}"
         ])
     )
 
     # Create hover text based on x-coordinate
     hover_text = []
-    custom_data = []
-    for x in data["Minutes"]:
-        if ci_lower <= x <= ci_upper:
+    for x_val in x:
+        if ci_lower <= x_val <= ci_upper:
             hover_text.append("Failed to reject H₀")
-            custom_data.append("> alpha")
         else:
             hover_text.append("Reject H₀")
-            custom_data.append("< alpha")
 
     fig.data[0].text = hover_text
-    fig.data[0].customdata = custom_data
 
     st.plotly_chart(fig, use_container_width=True)
 
