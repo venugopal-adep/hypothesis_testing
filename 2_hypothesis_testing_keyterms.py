@@ -3,249 +3,223 @@ import numpy as np
 from scipy import stats
 import plotly.graph_objects as go
 
-st.set_page_config(page_title="Hypothesis Testing Simplified", layout="wide")
+st.set_page_config(page_title="Understanding Evidence in Justice", layout="wide")
 
-st.title("🎓 Hypothesis Testing - Key Terms")
-st.write("**Developed by : Venugopal Adep**")
+st.title("⚖️ Understanding Evidence in Justice")
+st.write("**Developed by: Venugopal Adep**")
 
-tab1, tab2, tab3, tab4 = st.tabs(["📚 Key Terms", "🎮 Interactive Demo", "🧑‍⚖️ Real-World Example", "🧠 Quiz"])
+tab1, tab2, tab3, tab4 = st.tabs(["📚 Key Ideas", "🎮 Try It Yourself", "🧑‍⚖️ Real Example", "🧠 Quiz"])
 
 with tab1:
-    st.header("Key Terms in Hypothesis Testing - Explained Simply")
+    st.header("Key Ideas in Evaluating Evidence")
     
-    col1, col2 = st.columns(2)
+    st.subheader("Null Hypothesis (H₀)")
+    st.write("Our starting assumption: 'The defendant is innocent' or 'Nothing has changed'.")
     
-    with col1:
-        st.subheader("Null Hypothesis (H₀)")
-        st.markdown("""
-        <div style="background-color: #e6f3ff; border-radius: 10px; padding: 20px; margin-bottom: 20px;">
-        The initial assumption we're testing.
-        
-        🎲 Example: "This coin is fair" (50% chance of heads)
-        
-        It's what we assume to be true unless we find strong evidence otherwise.
-        </div>
-        """, unsafe_allow_html=True)
-        
-        st.subheader("Alternative Hypothesis (H₁)")
-        st.markdown("""
-        <div style="background-color: #e6f3ff; border-radius: 10px; padding: 20px; margin-bottom: 20px;">
-        What we're considering as an alternative to the null hypothesis.
-        
-        🎲 Example: "This coin is not fair" (chance of heads is not 50%)
-        
-        It's what we'll conclude if we reject the null hypothesis.
-        </div>
-        """, unsafe_allow_html=True)
-        
-        st.subheader("P-Value")
-        st.markdown("""
-        <div style="background-color: #e6f3ff; border-radius: 10px; padding: 20px; margin-bottom: 20px;">
-        The probability of getting our observed results (or more extreme) if the null hypothesis is true.
-        
-        🎲 Example: You flip a coin 100 times and get 60 heads. The p-value tells you how likely it is to get 60 or more heads with a fair coin.
-        
-        A small p-value (usually < 0.05) suggests strong evidence against the null hypothesis (i.e., the coin might not be fair).
-        </div>
-        """, unsafe_allow_html=True)
+    st.subheader("Alternative Hypothesis (H₁)")
+    st.write("What we're trying to prove: 'The defendant is guilty' or 'Something has changed'.")
     
-    with col2:
-        st.subheader("Significance Level (α)")
-        st.markdown("""
-        <div style="background-color: #e6f3ff; border-radius: 10px; padding: 20px; margin-bottom: 20px;">
-        The threshold for considering a result significant, usually set at 0.05 (5%).
-        
-        🎲 Example: If α = 0.05, you're saying: "I'll only believe the coin is unfair if there's less than a 5% chance of seeing these results with a fair coin."
-        
-        If p-value < α, we reject the null hypothesis (conclude the coin might be unfair).
-        </div>
-        """, unsafe_allow_html=True)
-        
-        st.subheader("Type I Error")
-        st.markdown("""
-        <div style="background-color: #e6f3ff; border-radius: 10px; padding: 20px; margin-bottom: 20px;">
-        Rejecting the null hypothesis when it's actually true (false positive).
-        
-        🎲 Example: Concluding the coin is unfair when it's actually fair.
-        
-        The probability of making this error is equal to the significance level (α).
-        </div>
-        """, unsafe_allow_html=True)
-        
-        st.subheader("Type II Error")
-        st.markdown("""
-        <div style="background-color: #e6f3ff; border-radius: 10px; padding: 20px; margin-bottom: 20px;">
-        Failing to reject the null hypothesis when it's actually false (false negative).
-        
-        🎲 Example: Concluding the coin is fair when it's actually unfair.
-        
-        The probability of avoiding this error is called the power of the test.
-        </div>
-        """, unsafe_allow_html=True)
-
-    st.subheader("Why do we say 'Fail to Reject H₀' instead of 'Accept H₀'?")
-    st.markdown("""
-    <div style="background-color: #e6f3ff; border-radius: 10px; padding: 20px; margin-bottom: 20px;">
-    We use "fail to reject" because we're never 100% certain that the null hypothesis is true. 
-    We're just saying we don't have enough evidence to reject it.
-
-    🎲 Example: If we don't find strong evidence that a coin is unfair, we don't say it's definitely fair. 
-    We just say we don't have enough evidence to conclude it's unfair. The coin could still be slightly biased, 
-    but our test might not be powerful enough to detect it.
-    </div>
-    """, unsafe_allow_html=True)
-
+    st.subheader("Significance Level (α)")
+    st.write("How sure we need to be before rejecting H₀. Usually set at 0.05 (95% sure) or 0.01 (99% sure).")
+    
+    st.subheader("p-value")
+    st.write("The probability of seeing our evidence (or more extreme) if H₀ is true. Smaller p-values suggest stronger evidence against H₀.")
+    
+    st.subheader("Type I Error")
+    st.write("Rejecting H₀ when it's actually true. In justice, this means convicting an innocent person.")
+    
+    st.subheader("Type II Error")
+    st.write("Failing to reject H₀ when it's actually false. In justice, this means letting a guilty person go free.")
+    
+    st.subheader("The Final Decision")
+    st.write("We either 'reject H₀' (conclude guilt/change) or 'fail to reject H₀' (not enough evidence for guilt/change).")
 
 with tab2:
-    st.header("Interactive Coin Flip Demo")
+    st.header("Try It Yourself: Evaluating Evidence")
 
-    st.markdown("""
-    <div style="background-color: #e6f3ff; border-radius: 10px; padding: 20px; margin-bottom: 20px;">
-    This interactive plot shows how changing your sample data affects the test results. 
-    Play with the sliders to see how the results change!
+    st.write("This interactive tool shows how the amount of evidence affects our decision.")
     
-    We're testing if a coin is fair (50% chance of heads) based on a series of flips.
-    </div>
-    """, unsafe_allow_html=True)
-
     col1, col2 = st.columns([1, 2])
 
     with col1:
-        # User inputs
-        num_flips = st.slider("Number of coin flips", 10, 1000, 100)
-        num_heads = st.slider("Number of heads observed", 0, num_flips, num_flips // 2)
-        alpha = st.selectbox("Significance Level (α)", [0.01, 0.05, 0.1])
+        total_evidence = st.slider("Total pieces of evidence", 10, 1000, 100, key="total_evidence_1")
+        incriminating_evidence = st.slider("Pieces of strong evidence", 0, total_evidence, total_evidence // 2, key="incriminating_evidence_1")
+        alpha = st.select_slider("Significance Level (α)", options=[0.01, 0.05, 0.1], value=0.05, key="alpha_1")
 
-        # Calculate p-value
-        p_value = min(
-            1 - stats.binom.cdf(num_heads - 1, num_flips, 0.5),
-            stats.binom.cdf(num_heads, num_flips, 0.5)
-        ) * 2  # Two-tailed test
+        p_value = 1 - stats.binom.cdf(incriminating_evidence - 1, total_evidence, 0.5)
 
-        st.write(f"P-value: {p_value:.4f}")
+        st.write(f"p-value: {p_value:.4f}")
         
         if p_value < alpha:
-            st.error("Reject the null hypothesis")
+            st.error("Reject H₀ (Evidence suggests guilt)")
         else:
-            st.success("Fail to reject the null hypothesis")
+            st.success("Fail to reject H₀ (Not enough evidence to conclude guilt)")
 
     with col2:
-        # Create the plot
-        x = np.arange(0, num_flips + 1)
-        y = stats.binom.pmf(x, num_flips, 0.5)
+        x = np.linspace(0, total_evidence, 1000)
+        y = stats.norm.pdf(x, total_evidence/2, np.sqrt(total_evidence/4))
 
         fig = go.Figure()
-        fig.add_trace(go.Bar(x=x, y=y, name='Probability'))
+        fig.add_trace(go.Scatter(x=x, y=y, mode='lines', name='Evidence Distribution', line=dict(color='blue', width=2)))
 
-        # Add vertical line for observed number of heads
-        fig.add_vline(x=num_heads, line_dash="dash", line_color="green", annotation_text="Observed Heads", annotation_position="top right")
+        critical_value = stats.norm.ppf(1-alpha, total_evidence/2, np.sqrt(total_evidence/4))
 
-        # Calculate critical values
-        lower_critical = stats.binom.ppf(alpha/2, num_flips, 0.5)
-        upper_critical = stats.binom.ppf(1-alpha/2, num_flips, 0.5)
+        fig.add_trace(go.Scatter(
+            x=np.concatenate([x[x <= critical_value], [critical_value]]),
+            y=np.concatenate([y[x <= critical_value], [0]]),
+            fill='tozeroy', fillcolor='rgba(0,255,0,0.3)', line_color='rgba(255,255,255,0)',
+            name='Fail to Reject H₀'
+        ))
 
-        # Shade rejection regions
-        fig.add_vrect(x0=0, x1=lower_critical, fillcolor="red", opacity=0.2, layer="below", line_width=0)
-        fig.add_vrect(x1=num_flips, x0=upper_critical, fillcolor="red", opacity=0.2, layer="below", line_width=0)
+        fig.add_trace(go.Scatter(
+            x=np.concatenate([[critical_value], x[x > critical_value]]),
+            y=np.concatenate([[0], y[x > critical_value]]),
+            fill='tozeroy', fillcolor='rgba(255,0,0,0.3)', line_color='rgba(255,255,255,0)',
+            name='Reject H₀'
+        ))
 
-        # Annotations
-        fig.add_annotation(x=num_flips/4, y=max(y), text="Rejection Region", showarrow=False, yshift=10)
-        fig.add_annotation(x=3*num_flips/4, y=max(y), text="Rejection Region", showarrow=False, yshift=10)
-        fig.add_annotation(x=num_flips/2, y=max(y)/2, text="Acceptance Region", showarrow=False, yshift=10)
-        fig.add_annotation(x=num_flips/2, y=max(y), text=f"Significance Level (α) = {alpha}", showarrow=False, yshift=30)
-        fig.add_annotation(x=lower_critical, y=0, text="Coin is not fair", showarrow=False, yshift=-20)
-        fig.add_annotation(x=upper_critical, y=0, text="Coin is not fair", showarrow=False, yshift=-20)
-        fig.add_annotation(x=num_flips/2, y=0, text="Coin is fair", showarrow=False, yshift=-20)
+        fig.add_vline(x=incriminating_evidence, line_dash="dash", line_color="black", 
+                      annotation_text="Observed Evidence", annotation_position="top right")
+
+        fig.add_vline(x=critical_value, line_dash="dash", line_color="red", 
+                      annotation_text=f"Critical Value (α={alpha})", annotation_position="bottom right")
+
+        fig.add_annotation(x=total_evidence/4, y=max(y), text="H₀: Innocent", showarrow=False, yshift=10)
+        fig.add_annotation(x=3*total_evidence/4, y=max(y), text="H₁: Guilty", showarrow=False, yshift=10)
+        fig.add_annotation(x=total_evidence/8, y=max(y)/2, text="Type II Error (β)", showarrow=False)
+        fig.add_annotation(x=7*total_evidence/8, y=max(y)/2, text="Type I Error (α)", showarrow=False)
 
         fig.update_layout(
-            title='Binomial Distribution for Coin Flips',
-            xaxis_title='Number of Heads',
-            yaxis_title='Probability',
-            height=500,
-            margin=dict(l=0, r=0, t=30, b=0)
+            title='Distribution of Evidence',
+            xaxis_title='Amount of Incriminating Evidence',
+            yaxis_title='Probability Density',
+            height=600,
+            showlegend=True
         )
 
         st.plotly_chart(fig, use_container_width=True)
 
+    st.write("""
+    What this shows:
+    - H₀ (Null Hypothesis): The defendant is innocent
+    - H₁ (Alternative Hypothesis): The defendant is guilty
+    - The blue curve shows the distribution of evidence if H₀ is true
+    - The green area is where we fail to reject H₀ (not enough evidence for guilt)
+    - The red area is where we reject H₀ (strong evidence suggesting guilt)
+    - α (alpha) is the significance level, representing the Type I error rate
+    - β (beta) represents the Type II error rate (not directly shown)
+    - The black line shows the observed evidence
+    - If the black line is in the red area, we reject H₀ (conclude guilt)
+    """)
+
 with tab3:
-    st.header("Real-World Example: The Case of the Speeding Judge")
+    st.header("Real Example: Investigating a Traffic Claim")
 
-    st.markdown("""
-    <div style="background-color: #e6f3ff; border-radius: 10px; padding: 20px; margin-bottom: 20px;">
-    Let's look at a real-world scenario to see how hypothesis testing works in practice.
+    st.write("""
+    Scenario: Someone claims that the rate of speeding at an intersection has increased. 
+    Let's investigate this claim using our evidence evaluation tool.
+    """)
 
-    🚗 Scenario: A judge is accused of speeding. The speed limit is 65 mph, and the judge claims he wasn't speeding. 
-    The police department has been tracking speeds on this road and knows that the average speed is normally distributed 
-    with a standard deviation of 3 mph. They took 25 speed measurements of the judge's car.
+    col1, col2 = st.columns([1, 2])
 
-    Null Hypothesis (H₀): The judge was not speeding (average speed ≤ 65 mph)
-    Alternative Hypothesis (H₁): The judge was speeding (average speed > 65 mph)
+    with col1:
+        usual_speeding_rate = st.slider("Usual speeding rate (%)", 5, 50, 20, key="usual_speeding_rate")
+        cars_observed = st.slider("Number of cars observed", 50, 500, 100, key="cars_observed")
+        speeders_observed = st.slider("Number of speeders observed", 0, cars_observed, 25, key="speeders_observed")
+        alpha = st.select_slider("Significance Level (α)", options=[0.01, 0.05, 0.1], value=0.05, key="alpha_2")
 
-    Let's say the 25 measurements had a mean of 66.2 mph. Is this enough evidence to conclude the judge was speeding?
-    We'll use a significance level of 0.05 (5%).
-    </div>
-    """, unsafe_allow_html=True)
+        # Calculate p-value using binomial test
+        p_value = 1 - stats.binom.cdf(speeders_observed - 1, cars_observed, usual_speeding_rate / 100)
 
-    st.markdown("""
-    <div style="background-color: #e6f3ff; border-radius: 10px; padding: 20px; margin-bottom: 20px;">
-    Step 1: Calculate the test statistic (t-value)
-    t = (x̄ - μ₀) / (s / √n)
-    Where x̄ = 66.2, μ₀ = 65, s = 3, n = 25
-    
-    t = (66.2 - 65) / (3 / √25) = 2
-    
-    Step 2: Find the critical t-value
-    For a one-tailed test with α = 0.05 and df = 24, the critical value is 1.711
-    
-    Step 3: Compare and conclude
-    Since 2 > 1.711, we reject the null hypothesis.
-    
-    In simple terms: The evidence suggests the judge was indeed speeding! 
-    The chance of seeing an average speed this high if the judge wasn't speeding is less than 5%.
-    </div>
-    """, unsafe_allow_html=True)
+        st.write(f"p-value: {p_value:.4f}")
+        
+        if p_value < alpha:
+            st.error("Reject H₀ (Evidence suggests speeding has increased)")
+        else:
+            st.success("Fail to reject H₀ (Not enough evidence to conclude speeding has increased)")
+
+    with col2:
+        x = np.linspace(0, cars_observed, 1000)
+        y = stats.norm.pdf(x, cars_observed * usual_speeding_rate / 100, np.sqrt(cars_observed * usual_speeding_rate / 100 * (1 - usual_speeding_rate / 100)))
+
+        fig = go.Figure()
+        fig.add_trace(go.Scatter(x=x, y=y, mode='lines', name='Speeding Distribution', line=dict(color='blue', width=2)))
+
+        critical_value = stats.norm.ppf(1-alpha, cars_observed * usual_speeding_rate / 100, np.sqrt(cars_observed * usual_speeding_rate / 100 * (1 - usual_speeding_rate / 100)))
+
+        fig.add_trace(go.Scatter(
+            x=np.concatenate([x[x <= critical_value], [critical_value]]),
+            y=np.concatenate([y[x <= critical_value], [0]]),
+            fill='tozeroy', fillcolor='rgba(0,255,0,0.3)', line_color='rgba(255,255,255,0)',
+            name='Fail to Reject H₀'
+        ))
+
+        fig.add_trace(go.Scatter(
+            x=np.concatenate([[critical_value], x[x > critical_value]]),
+            y=np.concatenate([[0], y[x > critical_value]]),
+            fill='tozeroy', fillcolor='rgba(255,0,0,0.3)', line_color='rgba(255,255,255,0)',
+            name='Reject H₀'
+        ))
+
+        fig.add_vline(x=speeders_observed, line_dash="dash", line_color="black", 
+                      annotation_text="Observed Speeders", annotation_position="top right")
+
+        fig.add_vline(x=critical_value, line_dash="dash", line_color="red", 
+                      annotation_text=f"Critical Value (α={alpha})", annotation_position="bottom right")
+
+        fig.add_annotation(x=cars_observed/4, y=max(y), text="H₀: No Increase", showarrow=False, yshift=10)
+        fig.add_annotation(x=3*cars_observed/4, y=max(y), text="H₁: Speeding Increased", showarrow=False, yshift=10)
+        fig.add_annotation(x=cars_observed/8, y=max(y)/2, text="Type II Error (β)", showarrow=False)
+        fig.add_annotation(x=7*cars_observed/8, y=max(y)/2, text="Type I Error (α)", showarrow=False)
+
+        fig.update_layout(
+            title='Distribution of Speeders',
+            xaxis_title='Number of Speeders',
+            yaxis_title='Probability Density',
+            height=600,
+            showlegend=True
+        )
+
+        st.plotly_chart(fig, use_container_width=True)
+
+    st.write("""
+    How to interpret this:
+    - H₀ (Null Hypothesis): The speeding rate hasn't increased
+    - H₁ (Alternative Hypothesis): The speeding rate has increased
+    - The blue curve shows the expected distribution of speeders if H₀ is true
+    - The green area is where we fail to reject H₀ (not enough evidence of increased speeding)
+    - The red area is where we reject H₀ (strong evidence suggesting increased speeding)
+    - α (alpha) is the significance level, representing the Type I error rate
+    - β (beta) represents the Type II error rate (not directly shown)
+    - The black line shows the observed number of speeders
+    - If the black line is in the red area, we reject H₀ (conclude speeding has increased)
+    """)
 
 with tab4:
     st.header("Quick Quiz")
     
-    st.markdown("""
-    <div style="background-color: #f0f2f6; border-radius: 10px; padding: 20px; margin-bottom: 20px;">
-    <h3>1. What does a small p-value indicate?</h3>
-    </div>
-    """, unsafe_allow_html=True)
-    q1 = st.radio("Select your answer:", 
-        ("Strong evidence against the null hypothesis", "Strong evidence for the null hypothesis", "No evidence either way"),
-        key="q1")
-    if st.button("Check Answer", key="b1"):
-        if q1 == "Strong evidence against the null hypothesis":
-            st.success("Correct! A small p-value suggests that what we observed would be rare if the null hypothesis were true.")
+    q1 = st.radio("1. What does a small p-value suggest?", 
+        ("Strong evidence for H₀", "Strong evidence against H₀", "No conclusion possible"), key="q1")
+    if st.button("Check", key="b1"):
+        if q1 == "Strong evidence against H₀":
+            st.success("Correct! A small p-value suggests strong evidence against the null hypothesis.")
         else:
-            st.error("Not quite. Think about what a small probability means in terms of how likely your observation is under the null hypothesis.")
+            st.error("Not quite. Think about what a small probability means in terms of the null hypothesis.")
     
-    st.markdown("""
-    <div style="background-color: #f0f2f6; border-radius: 10px; padding: 20px; margin-bottom: 20px;">
-    <h3>2. What is the significance level (α) commonly used in hypothesis testing?</h3>
-    </div>
-    """, unsafe_allow_html=True)
-    q2 = st.radio("Select your answer:", ("0.01", "0.05", "0.1", "0.5"), key="q2")
-    if st.button("Check Answer", key="b2"):
-        if q2 == "0.05":
-            st.success("Correct! 0.05 or 5% is the most commonly used significance level in many fields.")
+    q2 = st.radio("2. Why do we set a low significance level (α) in hypothesis testing?", 
+        ("To increase the chance of rejecting H₀", "To protect against false positives", "To make calculations easier"), key="q2")
+    if st.button("Check", key="b2"):
+        if q2 == "To protect against false positives":
+            st.success("Correct! A low α reduces the chance of Type I errors (false positives).")
         else:
-            st.error("Not quite. While other levels are sometimes used, there's one that's most common in practice.")
+            st.error("Think about the consequences of wrongly rejecting the null hypothesis.")
     
-    st.markdown("""
-    <div style="background-color: #f0f2f6; border-radius: 10px; padding: 20px; margin-bottom: 20px;">
-    <h3>3. What happens if the test statistic falls in the rejection region?</h3>
-    </div>
-    """, unsafe_allow_html=True)
-    q3 = st.radio("Select your answer:", 
-        ("We fail to reject the null hypothesis", "We reject the null hypothesis", "We accept the alternative hypothesis"),
-        key="q3")
-    if st.button("Check Answer", key="b3"):
-        if q3 == "We reject the null hypothesis":
-            st.success("Correct! When the test statistic falls in the rejection region, we reject the null hypothesis.")
+    q3 = st.radio("3. What does 'fail to reject H₀' mean?", 
+        ("H₀ is definitely true", "H₁ is definitely true", "There isn't enough evidence to conclude H₁"), key="q3")
+    if st.button("Check", key="b3"):
+        if q3 == "There isn't enough evidence to conclude H₁":
+            st.success("Correct! 'Fail to reject H₀' means we don't have enough evidence to support H₁, not that H₀ is definitely true.")
         else:
-            st.error("Not quite. Think about what it means when our evidence (test statistic) falls in an area we've designated for 'strong evidence against the null hypothesis'.")
+            st.error("Remember, we start with H₀ and only reject it if we have strong evidence against it.")
 
 st.markdown("---")
